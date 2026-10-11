@@ -2,7 +2,7 @@
 .venv/
 venv/
 
-# Variáveis de ambiente
+# Variáveis de ambiente / senhas
 .env
 
 # Cache Python

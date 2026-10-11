@@ -1,72 +1,41 @@
--- Tabelas de apoio ao projeto ETL TechStore
 -- Execute este script manualmente no PostgreSQL.
 
-CREATE TABLE raw_dados_externos (
-    id BIGSERIAL PRIMARY KEY, -- id: Um identificador único que cresce automaticamente.
-    dados JSONB NOT NULL, -- dados: Onde todo o payload (com colunas desconhecidas) será jogado.
-    inserido_em TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP -- inserido_em: Registra exatamente quando o dado bruto chegou.
+CREATE TABLE supermarket_raw (
+    invoice_id VARCHAR(50) PRIMARY KEY,
+    branch VARCHAR(10) NOT NULL,
+    city VARCHAR(100) NOT NULL,
+    customer_type VARCHAR(50) NOT NULL,
+    gender VARCHAR(20),
+    product_line VARCHAR(100) NOT NULL,
+    unit_price DECIMAL(10, 2) NOT NULL,
+    quantity INT NOT NULL,
+    tax_5porcent DECIMAL(10, 4) NOT NULL,
+    sales DECIMAL(10, 2) NOT NULL,
+    date_sale DATE NOT NULL,
+    time_sale TIME NOT NULL,
+    payment VARCHAR(50) NOT NULL,
+    cogs DECIMAL(10, 2) NOT NULL,
+    gross_margin_percentage DECIMAL(5, 2) NOT NULL,
+    gross_income DECIMAL(50, 2) NOT NULL,
+    rating DECIMAL(50, 1)
 );
 
-
-- Registro 1: Tem nome e idade
-INSERT INTO raw_dados_externos (dados) 
-VALUES ('{"nome": "Lucas", "idade": 28}');
-
--- Registro 2: Tem colunas totalmente diferentes (empresa, ativo, tags)
-INSERT INTO raw_dados_externos (dados) 
-VALUES ('{"empresa": "TechCorp", "ativo": true, "tags": ["ti", "cloud"]}');
-
-
-import pandas as pd
-import psycopg2
-import json
-
-# 1. Configurações de conexão com o banco de dados
-DB_CONFIG = {
-    "dbname": "seu_banco",
-    "user": "seu_usuario",
-    "password": "sua_senha",
-    "host": "localhost",
-    "port": "5432"
-}
-
-CSV_FILE_PATH = "seu_arquivo_desconhecido.csv"
-
-def extrair_e_carregar_raw():
-    # 2. Ler o CSV de forma genérica (Pandas detecta as colunas automaticamente)
-    # df.to_json(orient="records") transforma cada linha do CSV em um dicionário/JSON
-    df = pd.read_csv(CSV_FILE_PATH)
-    
-    # Preenche valores nulos/vazios para não quebrar o JSON
-    df = df.fillna('') 
-    
-    registros_json = df.to_dict(orient="records")
-
-    # 3. Conectar ao PostgreSQL
-    conn = psycopg2.connect(**DB_CONFIG)
-    cursor = conn.cursor()
-    
-    try:
-        # 4. Inserção em lote (Bulk Insert) para alta performance
-        query = "INSERT INTO raw_dados_externos (dados) VALUES (%s)"
-        
-        # Transformamos a lista de dicionários Python em strings JSON válidas para o PostgreSQL
-        valores_para_inserir = [(json.dumps(registro),) for registro in registros_json]
-        
-        cursor.executemany(query, valores_para_inserir)
-        conn.commit()
-        
-        print(f"Sucesso! {len(registros_json)} registros inseridos na tabela raw.")
-        
-    except Exception as e:
-        conn.rollback()
-        print(f"Erro ao inserir dados: {e}")
-        
-    finally:
-        cursor.close()
-        conn.close()
-
-if __name__ == "__main__":
-    extrair_e_carregar_raw()
-
-    
+CREATE TABLE supermarket (
+    id_venda VARCHAR(50) PRIMARY KEY,
+    filial VARCHAR(10) NOT NULL,
+    cidade VARCHAR(100) NOT NULL,
+    tipo_cliente VARCHAR(50) NOT NULL,
+    genero VARCHAR(20),
+    linha_produto VARCHAR(150) NOT NULL,
+    preco_unitario NUMERIC(10, 2) CHECK (preco_unitario >= 0),
+    quantidade INTEGER CHECK (quantidade > 0),
+    imposto NUMERIC(10, 2) CHECK (imposto >= 0),
+    valor_total NUMERIC(12, 2) CHECK (valor_total >= 0) NOT NULL,
+    data_venda DATE NOT NULL,
+    hora_venda TIME NOT NULL,
+    forma_pagamento VARCHAR(50) NOT NULL,
+    custo_mercadoria NUMERIC(12, 2) CHECK (custo_mercadoria >= 0),
+    margem_percentual NUMERIC(10, 2),
+    receita_bruta NUMERIC(12, 2) CHECK (receita_bruta >= 0),
+    avaliacao NUMERIC(4, 2) CHECK (avaliacao >= 0 AND avaliacao <= 10) 
+);
