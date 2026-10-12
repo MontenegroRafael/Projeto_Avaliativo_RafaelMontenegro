@@ -20,7 +20,7 @@ CREATE TABLE supermarket_raw (
     rating DECIMAL(50, 1)
 );
 
-CREATE TABLE supermarket (
+CREATE TABLE processed_supermarket (
     id_venda VARCHAR(50) PRIMARY KEY,
     filial VARCHAR(10) NOT NULL,
     cidade VARCHAR(100) NOT NULL,
