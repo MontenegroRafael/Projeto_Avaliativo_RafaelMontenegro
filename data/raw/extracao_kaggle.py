@@ -7,3 +7,4 @@ dataset_url = 'https://www.kaggle.com/datasets/faresashraf1001/supermarket-sales
 od.download(dataset_url, data_dir='.')
 
 # Vai precisar inserir suas credencias do Kaggle.
+#como logim e senha

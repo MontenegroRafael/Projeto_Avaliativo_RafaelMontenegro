@@ -2,7 +2,7 @@ from transform import transform
 from load import load
 from extract import extract_base_raw
 
-
+# executar todas as etapas do ETL
 def run_etl():
 
     # Extract

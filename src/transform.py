@@ -40,22 +40,15 @@ def transform():
         'gross income': 'receita_bruta',
         'Rating': 'avaliacao'
         }
-    df_vendas_tratadas=df_vendas.rename(columns=colunas_vendas_traducao) #função renomear colunas com base no dicionário criado acima.
-
+    df_vendas_tratadas=df_vendas_tratadas.rename(columns=colunas_vendas_traducao) #função renomear colunas com base no dicionário criado acima.
     
     # Convertendo as colunas para os tipos correspondentes
     df_vendas_tratadas["data_venda"] = pd.to_datetime(df_vendas_tratadas["data_venda"])
 
-    # tratando os nomes das colunas, removendo espaços em branco, convertendo para minúsculas e substituindo espaços por underscores
-    df_vendas_tratadas.columns = (
-        df_vendas_tratadas.columns
-        .str.strip()
-        .str.lower()
-        .str.replace(" ", "_")
-    )
-    
+    # Ordena a coluna 'data_venda' do menor para o maior
+    df_vendas_tratadas = df_vendas_tratadas.sort_values(by="data_venda", ascending=True)
 
-    # Convertendo a coluna "data_venda" para o formato de data desejado (dd-mm-yyyy)
+    # Convertendo a coluna "data_venda" para o formato de data brasileiro (dd-mm-yyyy)
     df_vendas_tratadas["data_venda"] =  df_vendas_tratadas["data_venda"].dt.strftime("%d-%m-%Y")
 
     

@@ -33,9 +33,9 @@ def load(
     print(f"CSV gerado: {caminho_csv}")
 
 
-    PROCESSED_DIR_tratado = "data/processed"
+    PROCESSED_DIR_tratado = "data/processed" # Diretório onde o arquivo CSV tratado será salvo
 
-    caminho_csv_tratado = f"{PROCESSED_DIR}/vendas_tratadas.csv"
+    caminho_csv_tratado = f"{PROCESSED_DIR}/vendas_tratadas.csv" 
 
     df_vendas_tratadas = pd.read_csv(
         caminho_csv_tratado,
