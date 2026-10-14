@@ -249,3 +249,19 @@ plt.legend(loc="upper left")
 
 plt.tight_layout()
 plt.show()
+
+# >>>>>>>>>>>>>>ANALISE DO VOLUME DE AVALIAÇÕES POR LINHA DE PRODUTO<<<<<<<<<<<<<<
+# Agrupando por linha de produto e calculando a média das avaliações
+df_agrupado_produto = df_vendas_tratadas.groupby("linha_produto")["avaliacao"].mean().reset_index()
+
+# Criando o gráfico de pizza
+plt.figure(figsize=(6, 6))
+plt.bar(df_agrupado_produto["linha_produto"], df_agrupado_produto["avaliacao"], color=["#4CAF50", "#2196F3", "#FF9800"])
+plt.ylim(0, 10)  # Define o limite do eixo y para melhor visualização
+
+# Customizações finais
+plt.title("Proporção da Média de Avaliações por Linha de Produto")
+plt.tight_layout()
+
+# Exibir o gráfico
+plt.show()
