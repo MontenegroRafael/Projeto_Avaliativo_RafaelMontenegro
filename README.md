@@ -1,8 +1,8 @@
 O repositório **Projeto_Avaliativo_RafaelMontenegro**, desenvolvido por **Rafael Montenegro**, é composto por código em **Python** e estruturado para a criação de um pipeline de dados, execução de rotinas em SQL e resolução de perguntas de negócio.
 
-A organização do projeto é composta pelos diretórios `data/`, `sql/`, `src/` e `resultados/`, além dos arquivos `requirements.txt`, `.gitignore` e `README.md`. O histórico de alterações do repositório evidencia etapas de criação de tabelas, carga de arquivos CSV, renomeação de colunas, criação do pipeline e persistência das respostas de negócio. 
+A organização do projeto é composta pelos diretórios `data/`, `sql/`, `src/` e `resultados/`, além dos arquivos `requirements.txt`, `.gitignore` e `README.md`. O histórico de alterações do repositório evidencia etapas de criação de tabelas, carga de arquivos CSV, renomeação de colunas, criação do pipeline e persistência das respostas de negócio.
 
-```markdown
+```Markdown
 # Projeto Avaliativo - Rafael Montenegro
 
 Repositório do projeto avaliativo desenvolvido por **Rafael Montenegro**, voltado para a estruturação de um pipeline de dados em **Python**, modelagem e carga de dados via **SQL**, e análise para respostas a perguntas de negócio.
@@ -13,20 +13,23 @@ Repositório do projeto avaliativo desenvolvido por **Rafael Montenegro**, volta
 
 Projeto_Avaliativo_RafaelMontenegro/
 │
-├── data/              # Armazenamento dos conjuntos de dados e arquivos CSV utilizados
-		/processed
-        /raw
-      
-├── sql/               # Scripts SQL (criação de tabelas, carga de CSV e renomeação de colunas)
-		/01_criar_banco.sql
-        /02_criar-tabelas.sql
-├── src/               # Código-fonte em Python (pipeline de processamento e lógica analítica)
-		/01_leitura_dados.py
-        /02_etl_vendas.py
-        /03_estatisticas.py
-├── resultados/        # Diretório destinado às respostas e saídas das perguntas de negócio
-				/estatisticas
-                /graficos
+# Armazenamento dos conjuntos de dados e arquivos CSV utilizados
+├── data/
+├────────/processed
+├────────/raw
+# Scripts SQL (criação de tabelas, carga de CSV e renomeação de colunas)
+├── sql/          
+├────────/01_criar_banco.sql
+├────────/02_criar-tabelas.sql
+# Código-fonte em Python (pipeline de processamento e lógica analítica)   
+├── src/           
+├────────/01_leitura_dados.py
+├────────/02_etl_vendas.py
+├────────/03_estatisticas.py
+# Diretório destinado às respostas e saídas das perguntas de negócio
+├── resultados/    
+├────────/estatisticas
+├────────/graficos
 ├── .gitignore         # Configurações de exclusão de arquivos do Git
 ├── requirements.txt   # Dependências e bibliotecas Python do projeto
 └── README.md          # Documentação do repositório
